@@ -2,6 +2,8 @@
 
 Extract HTML markup to JSON using [Cheerio](https://cheerio.js.org/).
 
+*This forked version is a synchronous version of the library that does not support Promise-returning pipe functions.*
+
 ---
 
 <!-- ![Build Status]() -->
@@ -46,7 +48,7 @@ const template = {
   },
 };
 
-const result = await cheerioJsonMapper(html, template);
+const result = cheerioJsonMapper(html, template);
 console.log(result);
 // output:
 // {
@@ -69,7 +71,7 @@ More examples are found in [the repo's tests/cases folder](https://github.com/de
 
 ### End-Result Structure First
 
-The main approach is to start from what we need to retrieve. Defining the end structure and just telling each property which _selector_ to use to get its value.
+The main approach is to start from what we need to retrieve. Defining the end structure and just telling each property which *selector_ to use to get its value.
 
 #### Hard-coded values (literals)
 
@@ -86,7 +88,7 @@ We can set hard values to the structure by wrapping strings in quotes or single-
 
 ### Scoping
 
-Large documents with nested parts tend to require big and ugly selectors. To simplify things, we can _scope_ an object to only care for a certain selected part.
+Large documents with nested parts tend to require big and ugly selectors. To simplify things, we can *scope* an object to only care for a certain selected part.
 
 Add a `$` property with selector to narrow down what the rest of the object should use as base.
 
@@ -141,7 +143,7 @@ const template = [
     value: '$', // uses `ul > li` as property selector
   },
 ];
-const result = await cheerioJsonMapper(html, template);
+const result = cheerioJsonMapper(html, template);
 console.log(result);
 // Output:
 // [
@@ -151,11 +153,11 @@ console.log(result);
 // ];
 ```
 
-> Note: Don't like the `$` name for scope selector? Change it through options: `cheerioJsonMapper(html, template, { scopeProp: '__scope' }): `
+> Note: Don't like the `$` name for scope selector? Change it through options: `cheerioJsonMapper(html, template, { scopeProp: '__scope' }):`
 
 ### Pipes
 
-Sometimes the text content of a selected node is not what we need. Or not enough. **_Pipes_ to rescue!**
+Sometimes the text content of a selected node is not what we need. Or not enough. ***Pipes* to rescue!**
 
 Pipes are functionality that can be applied to a value - both a property selector and an object. Use pipes to handle any custom needs.
 
@@ -163,9 +165,7 @@ Multiple pipes are supported (seperated by `|` char) and will run in sequence. D
 
 Pipes can have basic arguments by adding colon (`:`) along with semi-colon (`;`) seperated values.
 
-Pipes can by asynchronous.
-
-#### Use pipes in selector props:
+#### Use pipes in selector props
 
 ```js
 {
@@ -173,7 +173,7 @@ Pipes can by asynchronous.
 }
 ```
 
-### Use pipes in objects:
+### Use pipes in objects
 
 ```js
 {
@@ -184,9 +184,9 @@ Pipes can by asynchronous.
 }
 ```
 
-> Note: Don't like the `|` name for pipe property? Change it through options: `cheerioJsonMapper(html, template, { pipeProp: '__pipes' }): `
+> Note: Don't like the `|` name for pipe property? Change it through options: `cheerioJsonMapper(html, template, { pipeProp: '__pipes' }):`
 
-#### Default pipes included:
+#### Default pipes included
 
 - `text` - grab `.textContent` from selected node (used default if no other pipes are specified)
 - `trim` - trim grabbed text
@@ -232,7 +232,7 @@ const template = [
   },
 ];
 
-const contacts = await cheerioJsonMapper(html, template, { pipeFns: customPipes });
+const contacts = cheerioJsonMapper(html, template, { pipeFns: customPipes });
 ```
 
 ## Examples
