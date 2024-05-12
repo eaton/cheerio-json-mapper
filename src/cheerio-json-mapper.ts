@@ -79,7 +79,7 @@ const defaultOptions: Options = {
   pipeFns: { ...defaultPipeFns },
 };
 
-export function cheerioJsonMapper(
+export function cheerioJsonMapperSync(
   htmlOrNode: string | cheerio.AnyNode | cheerio.Cheerio<cheerio.AnyNode>,
   jsonTemplate: string | JsonTemplate,
   options?: Partial<Options>,
@@ -124,7 +124,7 @@ function mapObject($scope: cheerio.Cheerio<cheerio.AnyNode>, jsonTemplate: JsonT
     for (const key in jsonTemplate) {
       const templateValue = jsonTemplate[key];
       if (typeof templateValue === 'object' && templateValue) {
-        result[key] = cheerioJsonMapper($el, templateValue, opts); // recurse
+        result[key] = cheerioJsonMapperSync($el, templateValue, opts); // recurse
       } else {
         const isInternalProp = [opts.selectProp, opts.pipeProp].includes(key);
         if (isInternalProp) {

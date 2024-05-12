@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { cheerioJsonMapper, JsonTemplate, PipeFnMap } from '../src';
+import { cheerioJsonMapperSync, JsonTemplate, PipeFnMap } from '../src';
 
 const customPipes: PipeFnMap = {
   /** Replace any http:// link into https:// */
@@ -70,7 +70,7 @@ describe('cases', () => {
         expect(typeof expected).toBe('object');
       });
       it('should resolve expected', async () => {
-        const r = await cheerioJsonMapper(content, template, { pipeFns: customPipes });
+        const r = await cheerioJsonMapperSync(content, template, { pipeFns: customPipes });
         expect(r).toEqual(expected);
       });
     });

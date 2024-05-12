@@ -48,7 +48,7 @@ const template = {
   },
 };
 
-const result = cheerioJsonMapper(html, template);
+const result = cheerioJsonMapperSync(html, template);
 console.log(result);
 // output:
 // {
@@ -143,7 +143,7 @@ const template = [
     value: '$', // uses `ul > li` as property selector
   },
 ];
-const result = cheerioJsonMapper(html, template);
+const result = cheerioJsonMapperSync(html, template);
 console.log(result);
 // Output:
 // [
@@ -153,7 +153,7 @@ console.log(result);
 // ];
 ```
 
-> Note: Don't like the `$` name for scope selector? Change it through options: `cheerioJsonMapper(html, template, { scopeProp: '__scope' }):`
+> Note: Don't like the `$` name for scope selector? Change it through options: `cheerioJsonMapperSync(html, template, { scopeProp: '__scope' }):`
 
 ### Pipes
 
@@ -184,7 +184,7 @@ Pipes can have basic arguments by adding colon (`:`) along with semi-colon (`;`)
 }
 ```
 
-> Note: Don't like the `|` name for pipe property? Change it through options: `cheerioJsonMapper(html, template, { pipeProp: '__pipes' }):`
+> Note: Don't like the `|` name for pipe property? Change it through options: `cheerioJsonMapperSync(html, template, { pipeProp: '__pipes' }):`
 
 #### Default pipes included
 
@@ -232,7 +232,7 @@ const template = [
   },
 ];
 
-const contacts = cheerioJsonMapper(html, template, { pipeFns: customPipes });
+const contacts = cheerioJsonMapperSync(html, template, { pipeFns: customPipes });
 ```
 
 ## Examples
